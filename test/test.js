@@ -174,4 +174,16 @@ describe('events-light', function tests() {
         expect(fooA).to.deep.equal(['a', 'b']);
         expect(myEE.listenerCount('foo')).to.equal(1);
     });
+
+    it('should allow modification', function() {
+        var EventEmitter = require('../').EventEmitter;
+
+        var myEE = new EventEmitter();
+        var a = [];
+        var b = [];
+
+        myEE.emit('foo', 'a', 'b');
+        expect(a).to.deep.equal([['a', 'b']]);
+        expect(b).to.deep.equal([]);
+    });
 });

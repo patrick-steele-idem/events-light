@@ -65,6 +65,8 @@ var proto = EventEmitter.prototype = {
         if (typeof listeners === 'function') {
             invokeListener(this, listeners, args);
         } else {
+            listeners = slice.call(listeners);
+
             for (var i=0, len=listeners.length; i<len; i++) {
                 var listener = listeners[i];
                 invokeListener(this, listener, args);
