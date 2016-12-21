@@ -1,6 +1,6 @@
 {
   "name": "events-light",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Lightweight and fast implementation of the 'events' module for the browser and server.",
   "main": "src/index.js",
   "scripts": {
