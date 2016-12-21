@@ -45,6 +45,7 @@ function addListener(eventEmitter, type, listener, prepend) {
     } else {
         events[type] = listener;
     }
+    return eventEmitter;
 }
 
 function EventEmitter() {

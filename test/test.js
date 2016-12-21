@@ -21,7 +21,30 @@ describe('events-light', function tests() {
         expect(myEE.listenerCount('foo')).to.equal(1);
     });
 
-    it.only('should allow prependListener', function() {
+    it('supports chaining', function() {
+        var myEE = new EventEmitter();
+        var events = [];
+
+        myEE
+            .on('foo', function() {
+                events.push('foo');
+            })
+            .once('bar', function() {
+                events.push('bar');
+            })
+            .on('baz', function() {
+                events.push('baz');
+            });
+
+        myEE.emit('foo');
+        myEE.emit('bar');
+        myEE.emit('bar');
+        myEE.emit('baz');
+
+        expect(events).to.deep.equal(['foo', 'bar', 'baz']);
+    });
+
+    it('should allow prependListener', function() {
         var myEE = new EventEmitter();
         var fooA = [];
         var fooThis;
