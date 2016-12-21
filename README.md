@@ -31,7 +31,6 @@ myEventEmitter.emit('hello', 'World');
     - [`EventEmitter.listenerCount(emitter, eventName)`](https://nodejs.org/api/events.html#events_eventemitter_listenercount_emitter_eventname)
     - [`Event: 'removeListener'`](https://nodejs.org/api/events.html#events_event_removelistener)
     - [`Event: 'newListener'`](https://nodejs.org/api/events.html#events_event_newlistener)
-    - [`emitter.prependListener(eventName, listener)`](https://nodejs.org/api/events.html#events_emitter_prependlistener_eventname_listener)
     - [`emitter.prependOnceListener(eventName, listener)`](https://nodejs.org/api/events.html#events_emitter_prependoncelistener_eventname_listener)
     - [`emitter.setMaxListeners(n)`](https://nodejs.org/api/events.html#events_emitter_setmaxlisteners_n)
     - [`emitter.addListener(eventName, listener)`](https://nodejs.org/api/events.html#events_emitter_addlistener_eventname_listener) (use `on` instead)

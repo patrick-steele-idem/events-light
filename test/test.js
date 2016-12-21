@@ -21,6 +21,29 @@ describe('events-light', function tests() {
         expect(myEE.listenerCount('foo')).to.equal(1);
     });
 
+    it.only('should allow prependListener', function() {
+        var myEE = new EventEmitter();
+        var fooA = [];
+        var fooThis;
+
+        myEE.on('foo', function() {
+            fooA.push(slice.call(arguments));
+            fooThis = this;
+        });
+
+        myEE.prependListener('foo', function() {
+            fooA.push('PREPEND');
+            fooA.push(slice.call(arguments));
+            fooThis = this;
+        });
+
+
+        myEE.emit('foo', 'a', 'b');
+        expect(fooA).to.deep.equal(['PREPEND', ['a', 'b'], ['a', 'b']]);
+        expect(fooThis).to.equal(myEE);
+        expect(myEE.listenerCount('foo')).to.equal(2);
+    });
+
     it('handle multiple listener', function() {
         var myEE = new EventEmitter();
         var fooAEvents = [];

@@ -102,7 +102,7 @@ var proto = EventEmitter.prototype = {
         return addListener(this, type, listener, false);
     },
 
-    prependListener: function() {
+    prependListener: function(type, listener) {
         return addListener(this, type, listener, true);
     },
 
