@@ -182,6 +182,13 @@ describe('events-light', function tests() {
         var a = [];
         var b = [];
 
+        myEE.once('foo', function() {
+            a.push(slice.call(arguments));
+            myEE.on('foo', function() {
+                b.push(slice.call(arguments));
+            });
+        });
+
         myEE.emit('foo', 'a', 'b');
         expect(a).to.deep.equal([['a', 'b']]);
         expect(b).to.deep.equal([]);

@@ -25,6 +25,28 @@ function invokeListener(ee, listener, args) {
 
 var slice = Array.prototype.slice;
 
+function addListener(eventEmitter, type, listener, prepend) {
+    checkListener(listener);
+
+    var events = eventEmitter.$e || (eventEmitter.$e = {});
+
+    var listeners = events[type];
+    if (listeners) {
+        if (typeof listeners === 'function') {
+            events[type] = prepend ? [listener, listeners] : [listeners, listener];
+        } else {
+            if (prepend) {
+                listeners.unshift(listener);
+            } else {
+                listeners.push(listener);
+            }
+        }
+
+    } else {
+        events[type] = listener;
+    }
+}
+
 function EventEmitter() {
     this.$e = this.$e || {};
 }
@@ -77,23 +99,11 @@ var proto = EventEmitter.prototype = {
     },
 
     on: function(type, listener) {
-        checkListener(listener);
+        return addListener(this, type, listener, false);
+    },
 
-        var events = this.$e || (this.$e = {});
-
-        var listeners = events[type];
-        if (listeners) {
-            if (typeof listeners === 'function') {
-                events[type] = [listeners, listener];
-            } else {
-                listeners.push(listener);
-            }
-
-        } else {
-            events[type] = listener;
-        }
-
-        return this;
+    prependListener: function() {
+        return addListener(this, type, listener, true);
     },
 
     once: function(type, listener) {
