@@ -1,6 +1,12 @@
 /* jshint newcap:false */
+var slice = Array.prototype.slice;
+
+function isFunction(arg) {
+    return typeof arg === 'function';
+}
+
 function checkListener(listener) {
-    if (typeof listener !== 'function') {
+    if (!isFunction(listener)) {
         throw TypeError('Invalid listener');
     }
 }
@@ -23,8 +29,6 @@ function invokeListener(ee, listener, args) {
     }
 }
 
-var slice = Array.prototype.slice;
-
 function addListener(eventEmitter, type, listener, prepend) {
     checkListener(listener);
 
@@ -32,7 +36,7 @@ function addListener(eventEmitter, type, listener, prepend) {
 
     var listeners = events[type];
     if (listeners) {
-        if (typeof listeners === 'function') {
+        if (isFunction(listeners)) {
             events[type] = prepend ? [listener, listeners] : [listeners, listener];
         } else {
             if (prepend) {
@@ -54,8 +58,8 @@ function EventEmitter() {
 
 EventEmitter.EventEmitter = EventEmitter;
 
-var proto = EventEmitter.prototype = {
-    $e: undefined,
+EventEmitter.prototype = {
+    $e: null,
 
     emit: function(type) {
         var args = arguments;
@@ -82,10 +86,7 @@ var proto = EventEmitter.prototype = {
             return false;
         }
 
-
-        var argsLength = args.length;
-
-        if (typeof listeners === 'function') {
+        if (isFunction(listeners)) {
             invokeListener(this, listeners, args);
         } else {
             listeners = slice.call(listeners);
@@ -132,7 +133,7 @@ var proto = EventEmitter.prototype = {
         var listeners;
 
         if (events && (listeners = events[type])) {
-            if (typeof listeners === 'function') {
+            if (isFunction(listeners)) {
                 if (listeners === listener) {
                     delete events[type];
                 }
@@ -158,7 +159,7 @@ var proto = EventEmitter.prototype = {
     listenerCount: function(type) {
         var events = this.$e;
         var listeners = events && events[type];
-        return listeners ? (typeof listeners === 'function' ? 1 : listeners.length) : 0;
+        return listeners ? (isFunction(listeners) ? 1 : listeners.length) : 0;
     }
 };
 
