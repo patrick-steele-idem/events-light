@@ -34,7 +34,6 @@ myEventEmitter.emit('hello', 'World');
     - [`emitter.prependOnceListener(eventName, listener)`](https://nodejs.org/api/events.html#events_emitter_prependoncelistener_eventname_listener)
     - [`emitter.setMaxListeners(n)`](https://nodejs.org/api/events.html#events_emitter_setmaxlisteners_n)
     - [`emitter.addListener(eventName, listener)`](https://nodejs.org/api/events.html#events_emitter_addlistener_eventname_listener) (use `on` instead)
-    - [`emitter.listenerCount(eventName)`](https://nodejs.org/api/events.html#events_emitter_listenercount_eventname)
     - [`emitter.listeners(eventName)`](https://nodejs.org/api/events.html#events_emitter_listeners_eventname)
 
 # License
