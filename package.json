@@ -15,9 +15,6 @@
   "directories": {
     "test": "test"
   },
-  "dependencies": {
-    "chai": "^3.5.0"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/patrick-steele-idem/events-light.git"
