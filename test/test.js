@@ -184,6 +184,37 @@ describe('events-light', function tests() {
         expect(fooBEvents).to.deep.equal([['a', 'b']]);
     });
 
+    it('should handle removeAllListeners of all types', function() {
+        var myEE = new EventEmitter();
+
+        var fooEvents = [];
+        var barEvents = [];
+
+        myEE.on('foo', function fooA() {
+            fooEvents.push(slice.call(arguments));
+        });
+        myEE.on('bar', function fooB() {
+            barEvents.push(slice.call(arguments));
+        });
+
+        expect(myEE.listenerCount('foo')).to.equal(1);
+        expect(myEE.listenerCount('bar')).to.equal(1);
+
+        myEE.emit('foo', 'a', 'b');
+        expect(fooEvents).to.deep.equal([['a', 'b']]);
+        myEE.emit('bar', 'c', 'd');
+        expect(barEvents).to.deep.equal([['c', 'd']]);
+
+        myEE.removeAllListeners();
+        expect(myEE.listenerCount('foo')).to.equal(0);
+        expect(myEE.listenerCount('bar')).to.equal(0);
+
+        myEE.emit('foo', 'e', 'f');
+        myEE.emit('bar', 'g', 'h');
+        expect(fooEvents).to.deep.equal([['a', 'b']]);
+        expect(barEvents).to.deep.equal([['c', 'd']]);
+    });
+
     it('inherits when used with `require("util").inherits`', function() {
         function MyEventEmitter() {
             EventEmitter.call(this);

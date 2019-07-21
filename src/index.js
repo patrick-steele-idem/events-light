@@ -152,7 +152,11 @@ EventEmitter.prototype = {
     removeAllListeners: function(type) {
         var events = this.$e;
         if (events) {
-            delete events[type];
+            if (arguments.length) {
+                delete events[type];
+            } else {
+                this.$e = null;
+            }
         }
     },
 
